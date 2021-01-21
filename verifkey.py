@@ -8,10 +8,9 @@ def mrz_generator(last_name, first_name, birth_date, sex):
     elif len(last_name) < 25:
         while len(last_name) < 25:
             last_name += '<'
-    first_line = 'ID' + 'FRA' + last_name + ''.join([str(random.randrange(1, 9)) for x in range(2)]) + '0' + \
-                 ''.join([str(random.randrange(1, 9)) for x in range(3)])
+    first_line = 'ID' + 'FRA' + last_name + random_string(2, 1, 9) + '0' + random_string(3, 1, 9)
 
-    title_code = ''.join([str(random.randrange(1, 9)) for x in range(12)])
+    title_code = random_string(12, 1, 9)
     key1 = str(key(title_code))
     key2 = str(key(birth_date))
 
@@ -27,6 +26,8 @@ def mrz_generator(last_name, first_name, birth_date, sex):
     second_line += final_key
 
     print(first_line + '\n' + second_line)
+    print(len(first_line))
+    print(len(second_line))
     return first_line + '\n' + second_line
 
 
@@ -49,5 +50,9 @@ def key(string):
     return result % 10
 
 
+def random_string(nb_char, start, stop):
+    return ''.join([str(random.randrange(start, stop)) for x in range(nb_char)])
+
+
 if __name__ == '__main__':
-    mrz_generator('ASTLEY', 'RICK', '000101', 'M')
+    mrz_generator('TANNEN', 'BIFF', '370326', 'M')
